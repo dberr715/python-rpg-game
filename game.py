@@ -1,52 +1,36 @@
-# Define Hero Class
+# Define Character Parent Class
 class Character:
     def __init__(self, health, power, name):
         self.health = health
         self.power = power
         self.name = name
 
-    # def print_status(self):
-    #     print(" %s is alive" % self.name)
-    #     print("%s has %d health and %d power." % (self.name, self.health, self.power))
-    #     return self.health
-
     def alive(self):
         if self.health > 0:
-            # self.print_status()
             print("%s is alive" % self.name)
             print(
                 "%s has %d health and %d power." % (self.name, self.health, self.power)
             )
             return self.health
+    def attack(self, opposition):
+        opposition.health -= self.power
+        self.print_status()
+        if opposition.health <= 0:
+            print("The %s is dead." % (self.name))
 
-
+# Define Hero Child Class
 class Hero(Character):
     def print_status(self):
         print("%s is alive" % self.name)
         print("%s has %d health and %d power." % (self.name, self.health, self.power))
         return self.health
 
-    def attack(self, enemy):
-        enemy.health -= self.power
-        # print("You (%s) do %d damage to %s." % (self.name, self.power, goblin.name))
-        self.print_status()
-        if enemy.health <= 0:
-            print("The %s is dead." % (goblin.name))
-
-
-# Define Goblin Class
+# Define Goblin Child Class
 class Goblin(Character):
     def print_status(self):
         print("%s is alive" % self.name)
         print("%s has %d health and %d power." % (self.name, self.health, self.power))
         return self.health
-
-    def attack(self, hero):
-        hero.health -= self.power
-        # print("%s does %d damage to %s." % (self.name, self.power, hero.name))
-        self.print_status()
-        if hero.health <= 0:
-            print("The %s is dead." % (hero.name))
 
 
 # Instantiate goblin and hero
