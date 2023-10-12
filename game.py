@@ -12,11 +12,13 @@ class Character:
                 "%s has %d health and %d power." % (self.name, self.health, self.power)
             )
             return self.health
+
     def attack(self, opposition):
-        opposition.health -= self.power
+        print("Attack is useless! Zombies are already undead!")
         self.print_status()
         if opposition.health <= 0:
             print("The %s is dead." % (self.name))
+
 
 # Define Hero Child Class
 class Hero(Character):
@@ -24,6 +26,7 @@ class Hero(Character):
         print("%s is alive" % self.name)
         print("%s has %d health and %d power." % (self.name, self.health, self.power))
         return self.health
+
 
 # Define Goblin Child Class
 class Goblin(Character):
@@ -33,12 +36,36 @@ class Goblin(Character):
         return self.health
 
 
-# Instantiate goblin and hero
-goblin = Goblin(6, 2, "Goblin--BOIIII")
+class Zombie:
+    def __init__(self, health, power, name):
+        self.health = health
+        self.power = power
+        self.name = name
+
+    def print_status(self):
+        print("%s is alive" % self.name)
+        print("%s has %d health and %d power." % (self.name, self.health, self.power))
+        return self.health
+
+    def alive(self):
+        print("%s is alive, FOREVER!!" % self.name)
+        print("%s has %d health and %d power." % (self.name, self.health, self.power))
+        return self.health
+
+    def attack(self, hero):
+        hero.health -= self.power
+        self.print_status()
+        if hero.health <= 0:
+            print("The %s is dead." % (hero.name))
+
+
+# Instantiate goblin and hero and zombie
+goblin = Goblin(6, 2, "GOBLIN--BOIIII")
 hero = Hero(10, 5, "Mr. HERO")
+zombie = Zombie(1, 1, "ZORGU")
 
 
-while goblin.alive() and hero.alive():
+while zombie.alive() and hero.alive():
     print("You have %d health and %d power." % (hero.health, hero.power))
     print("The goblin has %d health and %d power." % (goblin.health, goblin.power))
     print()
@@ -60,6 +87,6 @@ while goblin.alive() and hero.alive():
         print("Goodbye")
         break
     elif user_input == "4":
-        goblin.attack(hero)
+        zombie.attack(hero)
     else:
         print("Invalid input %r" % user_input)
